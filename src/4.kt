@@ -7,26 +7,19 @@ Find the largest palindrome made from the product of two 3-digit numbers.
 fun ifPalindrome(number: Int, digits: Int): Boolean {
     var numberMap = hashMapOf<Int, Int>()
     var myNumber = number
-    val numberOfDigits = digits - 1
-    var divider = pow(10.0, numberOfDigits.toDouble()).toInt()
-    var digitValue = 0
+    var divider = pow(10.0, (digits - 1).toDouble()).toInt()
+    var digitValue: Int
 
-    while (myNumber != 0){
+    print("$myNumber = ")
+    for (i in 1..digits) {
         digitValue = myNumber / divider
-        print("($divider)$digitValue,")
-        numberMap.put(divider,digitValue)
+        print("($digitValue x $divider)")
+        numberMap.put(divider, digitValue)
         myNumber -= (digitValue * divider)
         divider /= 10
     }
-    //println(numberMap)
-//    for((order,value) in numberMap){
-//        if (numberMap[order] == numberMap[1] ){
-//
-//        }
-//    }
 
     println()
-    //println("$myNumber[$digits] -> $divider, $digitValue")
 
     return true
 }
@@ -37,6 +30,7 @@ fun main(args: Array<String>) {
     var numberTwo = baseNumber
     var divider = 10
     var numberOfDigits = 1
+
     while (numberOne >= 1) {
         while (numberTwo >= numberOne) {
             var myNumber = numberOne * numberTwo
@@ -52,4 +46,5 @@ fun main(args: Array<String>) {
         numberTwo = baseNumber
         numberOne--
     }
+
 }
