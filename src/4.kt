@@ -10,15 +10,12 @@ fun isPalindrome(number: Int, digits: Int): Boolean {
     var divider = pow(10.0, (digits - 1).toDouble()).toInt()
     var digitValue: Int
 
-    //print("$myNumber = ")
     for (i in 1..digits) {
         digitValue = myNumber / divider
-        // print("($digitValue x $divider)")
         numberMap.put(divider, digitValue)
         myNumber -= (digitValue * divider)
         divider /= 10
     }
-    //println()
     return makeReverse(numberMap) == number
 }
 
@@ -28,12 +25,9 @@ fun makeReverse(numberMap: HashMap<Int, Int>): Int {
     var reverseNumber = 0
     var digit = 1
     var multiplier = myKey
-    //println("$numberMap -> $numberOfDigits")
 
     while (digit in 1..myKey) {
         reverseNumber += numberMap[digit]!! * multiplier
-        //println("${numberMap[digit]} -> $digit")
-        //println("${numberMap[digit]} -> $multiplier")
         digit *= 10
         multiplier /= 10
     }
@@ -54,19 +48,18 @@ fun main(args: Array<String>) {
     val baseNumber = 999
     var numberOne = baseNumber
     var numberTwo = baseNumber
+    val myList = arrayListOf<Int>()
 
     while (numberOne >= 1) {
-        stop@ while (numberTwo >= numberOne) {
+        while (numberTwo >= numberOne) {
             val myNumber = numberOne * numberTwo
-            val numberOfDigits = digitFinder(myNumber)
-            if (isPalindrome(myNumber, numberOfDigits)) {
-                println("$myNumber = $numberTwo x $numberOne")
-                break@stop
+            if (isPalindrome(myNumber, digitFinder(myNumber))) {
+                myList.add(myNumber)
             }
             numberTwo--
         }
         numberOne--
         numberTwo = baseNumber
     }
-
+    println(myList.max())
 }
