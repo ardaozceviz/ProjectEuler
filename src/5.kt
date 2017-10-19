@@ -5,19 +5,23 @@ What is the smallest positive number that is evenly divisible by all of the numb
 
 fun main(args: Array<String>) {
 
-    val dividers = (1..10).toList()
-    var myNumber = 1
-
-    for (divider in dividers) {
-        if(myNumber % divider != 0) {
-            for (innerDivider in dividers){
-                while (myNumber % innerDivider != 0){
-                    myNumber++
-                }
-            }
+    var divider = 2
+    var number = 80
+    var counter = 0
+    val numberMap = hashMapOf<Int, Int>()
+    while (number % divider == 0) {
+        counter++
+        if (number / divider != 1) {
+            number /= divider
+        } else {
+            numberMap.put(divider, counter)
+            break
         }
-        println(myNumber)
+        numberMap.put(divider, counter)
+        while (number % divider != 0) {
+            divider++
+            counter = 0
+        }
     }
-
-
+    println(numberMap)
 }
