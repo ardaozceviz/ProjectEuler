@@ -4,35 +4,24 @@ What is the smallest positive number that is evenly divisible by all of the numb
 */
 
 fun main(args: Array<String>) {
-    println(okek(20))
+    println("%.0f".format(okek(20)))
 }
 
-fun okek(limit: Int): Int {
-    var result = multiplyPrimeNumbers(limit)
-    for (i in 2 until limit) {
-        while (result % i != 0) {
-            result *= biggestPrimeFactor(i)
+fun okek(limit: Int): Double {
+    val list = findPrimes(limit)
+    var result = 1.0
+    var counter = 0
+    for (divider in list) {
+        var number = limit
+        while (true) {
+            if (number < divider) break
+            number /= divider
+            counter++
         }
+        result *= Math.pow(divider.toDouble(), counter.toDouble())
+        counter = 0
     }
     return result
-}
-
-fun multiplyPrimeNumbers(limit: Int): Int {
-    var value = 1
-    val primeNumbers = findPrimes(limit)
-    for (number in primeNumbers) {
-        value *= number
-    }
-    return value
-}
-
-fun biggestPrimeFactor(i: Int): Int {
-    for (j in i - 1 downTo 2) {
-        if (i % j == 0 && isPrime(j)) {
-            return j
-        }
-    }
-    return i
 }
 
 fun findPrimes(i: Int): List<Int> {
@@ -49,10 +38,8 @@ fun findPrimes(i: Int): List<Int> {
 fun isPrime(i: Int): Boolean {
     if (i <= 1) return false
     if (i == 2) return true
-
     for (j in 2 until i) {
         if (i % j == 0) return false
-
     }
     return true
 }
