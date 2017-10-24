@@ -7,9 +7,9 @@ fun main(args: Array<String>) {
     println(okek(20))
 }
 
-fun okek(limit: Int): Int{
+fun okek(limit: Int): Int {
     var result = multiplyPrimeNumbers(limit)
-    for (i in limit downTo 2) {
+    for (i in 2 until limit) {
         while (result % i != 0) {
             result *= biggestPrimeFactor(i)
         }
@@ -17,14 +17,22 @@ fun okek(limit: Int): Int{
     return result
 }
 
+fun multiplyPrimeNumbers(limit: Int): Int {
+    var value = 1
+    val primeNumbers = findPrimes(limit)
+    for (number in primeNumbers) {
+        value *= number
+    }
+    return value
+}
+
 fun biggestPrimeFactor(i: Int): Int {
-    val result = i
     for (j in i - 1 downTo 2) {
-        if (result % j == 0 && isPrime(j)) {
+        if (i % j == 0 && isPrime(j)) {
             return j
         }
     }
-    return result
+    return i
 }
 
 fun findPrimes(i: Int): List<Int> {
@@ -39,25 +47,23 @@ fun findPrimes(i: Int): List<Int> {
 }
 
 fun isPrime(i: Int): Boolean {
-    if (i <= 1) {
-        return false
-    }
-    if (i == 2) {
-        return true
-    }
+    if (i <= 1) return false
+    if (i == 2) return true
+
     for (j in 2 until i) {
-        if (i % j == 0) {
-            return false
-        }
+        if (i % j == 0) return false
+
     }
     return true
 }
 
-fun multiplyPrimeNumbers(limit: Int): Int {
-    var value = 1
-    val primeNumbers = findPrimes(limit)
-    for (number in primeNumbers) {
-        value *= number
-    }
-    return value
-}
+
+
+
+
+
+
+
+
+
+
