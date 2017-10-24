@@ -4,24 +4,60 @@ What is the smallest positive number that is evenly divisible by all of the numb
 */
 
 fun main(args: Array<String>) {
+    println(okek(20))
+}
 
-    var divider = 2
-    var number = 80
-    var counter = 0
-    val numberMap = hashMapOf<Int, Int>()
-    while (number % divider == 0) {
-        counter++
-        if (number / divider != 1) {
-            number /= divider
-        } else {
-            numberMap.put(divider, counter)
-            break
-        }
-        numberMap.put(divider, counter)
-        while (number % divider != 0) {
-            divider++
-            counter = 0
+fun okek(limit: Int): Int{
+    var result = multiplyPrimeNumbers(limit)
+    for (i in limit downTo 2) {
+        while (result % i != 0) {
+            result *= biggestPrimeFactor(i)
         }
     }
-    println(numberMap)
+    return result
+}
+
+fun biggestPrimeFactor(i: Int): Int {
+    val result = i
+    for (j in i - 1 downTo 2) {
+        if (result % j == 0 && isPrime(j)) {
+            return j
+        }
+    }
+    return result
+}
+
+fun findPrimes(i: Int): List<Int> {
+    val primeNumbers = arrayListOf<Int>()
+
+    for (j in 2..i) {
+        if (isPrime(j)) {
+            primeNumbers.add(j)
+        }
+    }
+    return primeNumbers
+}
+
+fun isPrime(i: Int): Boolean {
+    if (i <= 1) {
+        return false
+    }
+    if (i == 2) {
+        return true
+    }
+    for (j in 2 until i) {
+        if (i % j == 0) {
+            return false
+        }
+    }
+    return true
+}
+
+fun multiplyPrimeNumbers(limit: Int): Int {
+    var value = 1
+    val primeNumbers = findPrimes(limit)
+    for (number in primeNumbers) {
+        value *= number
+    }
+    return value
 }
