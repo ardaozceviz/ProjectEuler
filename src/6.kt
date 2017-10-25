@@ -18,11 +18,7 @@ fun main(args: Array<String>) {
 }
 
 fun difference(numbers: List<Int>): Int {
-    val squares = mutableListOf<Int>()
-    for (number in numbers) {
-        squares.add(Math.pow(number.toDouble(), 2.0).toInt())
-    }
-
+    val squares = numbers.map { Math.pow(it.toDouble(), 2.0).toInt() }
     val sum = squares.sum()
     val squareOfTheSum = Math.pow(numbers.sum().toDouble(), 2.0).toInt()
     return squareOfTheSum - sum
