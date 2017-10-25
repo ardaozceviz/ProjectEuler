@@ -22,8 +22,5 @@ fun nThPrime(limit: Int): Int{
 fun isItPrime(i: Int): Boolean {
     if (i <= 1) return false
     if (i == 2) return true
-    for (j in 2 until i) {
-        if (i % j == 0) return false
-    }
-    return true
+    return (2 until i).none { i % it == 0 }
 }
